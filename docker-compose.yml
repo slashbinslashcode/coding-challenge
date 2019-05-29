@@ -1,0 +1,30 @@
+version: '3.6'
+
+services:
+  install:
+    build: .
+    image: coding-challenge:latest
+    working_dir: /usr/src/app/
+    volumes:
+      - .:/usr/src/app/:cached
+    environment:
+      - NODE_ENV=dev
+    command: bash -c 'yarn install'
+
+  challengeone:
+    image: coding-challenge:latest
+    working_dir: /usr/src/app/
+    environment:
+      - NODE_ENV=dev
+    volumes:
+      - ./src:/usr/src/app/src:cached
+    command: bash -c "yarn test TestOne.test.js --all"
+
+  challengetwo:
+    image: coding-challenge:latest
+    working_dir: /usr/src/app/
+    environment:
+      - NODE_ENV=dev
+    volumes:
+      - ./src:/usr/src/app/src:cached
+    command: bash -c "yarn test TestTwo.test.js --all"
